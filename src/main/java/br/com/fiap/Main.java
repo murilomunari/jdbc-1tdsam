@@ -22,6 +22,17 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        JOptionPane.showMessageDialog( null, "Vamos salvar um cliente no banco de dados" );
+        persist();
+        JOptionPane.showMessageDialog( null, "Listando todos os clientes" );
+        findAll();
+        JOptionPane.showMessageDialog( null, "Consultando cliente por ID" );
+        findById();
+        JOptionPane.showMessageDialog( null, "Listando todos os clientes pelo contúdo do nome" );
+        findByName();
+    }
+
+    private static void findByName() {
         var sql = "SELECT * FROM cliente where UPPER(NM_CLIENTE) like ?";
         Connection connection = getConnection();
         try {
