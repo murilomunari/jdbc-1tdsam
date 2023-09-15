@@ -14,6 +14,7 @@ public class Main {
 
     public static Connection getConnection() {
 
+
         String url = null;
         String pass = null;
         String user = null;
@@ -42,6 +43,7 @@ public class Main {
             System.err.println("Não encontramos o arquivo de configurção: " + e.getMessage());
         } catch (IOException e) {
             System.err.println("Não foi possivel ler o arquivo de configuração: " + e.getMessage());
+
         } catch (SQLException e) {
             System.err.println("Não foi possivel realizar a conexão com o bando de dados: " + e.getMessage());
         }
