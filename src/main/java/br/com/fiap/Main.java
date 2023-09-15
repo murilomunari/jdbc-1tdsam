@@ -10,11 +10,11 @@ public class Main {
     public static Connection getConnection() {
         var url = "jdbc:oracle:thin:@localhost:1521:XE";
         var url_fiap = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL";
-        String user = "BENEZINHO";
-        String password = "root";
+        String user = "rm94164";
+        String password = "200101";
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection( url, user, password );
+            connection = DriverManager.getConnection( url_fiap, user, password );
         } catch (SQLException e) {
             System.err.println( "Não foi possivel conectar com o banco de dados!" + e.getMessage() );
         }
