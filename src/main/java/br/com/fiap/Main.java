@@ -1,24 +1,52 @@
 package br.com.fiap;
 
 import javax.swing.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.*;
 import java.util.Objects;
+import java.util.Properties;
 
 public class Main {
 
 
     public static Connection getConnection() {
-        var url = "jdbc:oracle:thin:@localhost:1521:XE";
-        var url_fiap = "jdbc:oracle:thin:@oracle.fiap.com.br:1521:ORCL";
-        String user = "rm94164";
-        String password = "200101";
-        Connection connection = null;
+
+        String url = null;
+        String pass = null;
+        String user = null;
+        String driver = null;
+        String debugar = null;
+
+
+        Properties prop = new Properties();
+        FileInputStream file = null;
         try {
-            connection = DriverManager.getConnection( url_fiap, user, password );
+            file = new FileInputStream("src/main/resources/application.properties");
+            prop.load(file);
+
+            url = prop.getProperty("datasource.url");
+            user = prop.getProperty("datasource.username");
+            pass = prop.getProperty("datasource.password");
+            driver = prop.getProperty("datasource.driver-class-name");
+            debugar = prop.getProperty("datasource.debugar");
+
+            file.close();
+
+          return  DriverManager.getConnection(url, user, pass);
+
+
+        } catch (FileNotFoundException e) {
+            System.err.println("Não encontramos o arquivo de configurção: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Não foi possivel ler o arquivo de configuração: " + e.getMessage());
         } catch (SQLException e) {
-            System.err.println( "Não foi possivel conectar com o banco de dados!" + e.getMessage() );
+            System.err.println("Não foi possivel realizar a conexão com o bando de dados: " + e.getMessage());
         }
-        return connection;
+        return null;
+
     }
 
     public static void main(String[] args) {
