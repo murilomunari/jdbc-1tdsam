@@ -41,7 +41,11 @@ public class ClienteRepository implements Repository<Cliente, Long> {
         return cliente;
     }
 
-
+    /**
+     * Método que retorna todas as Entidades
+     *
+     * @return
+     */
     @Override
     public List<Cliente> findAll() {
 
@@ -70,7 +74,12 @@ public class ClienteRepository implements Repository<Cliente, Long> {
         return clientes;
     }
 
-
+    /**
+     * Método que retorna uma Entity pelo seu identificador
+     *
+     * @param id
+     * @return
+     */
     @Override
     public Cliente findById(Long id) {
         Cliente cliente = null;
@@ -116,7 +125,7 @@ public class ClienteRepository implements Repository<Cliente, Long> {
                     );
                 }
             } else {
-                System.out.println( "Cliente não encontrado pelo o nome = " + texto );
+                System.out.println( "Cliente não encontrado com o nome = " + texto );
             }
             resultSet.close(); preparedStatement.close(); connection.close();
         } catch (SQLException e) {
