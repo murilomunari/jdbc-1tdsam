@@ -75,9 +75,9 @@ public class ClienteRepository implements Repository<Cliente, Long> {
     }
 
     /**
-     * Método que retorna um t pelo seu identificador
+     * Método que retorna uma Entity pelo seu identificador
      *
-     * @param aLong
+     * @param id
      * @return
      */
     @Override
