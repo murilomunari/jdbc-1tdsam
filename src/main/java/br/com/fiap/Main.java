@@ -24,7 +24,7 @@ public class Main {
     public static void main(String[] args) {
         JOptionPane.showMessageDialog( null, "Vamos salvar um cliente no banco de dados" );
         persist();
-        JOptionPane.showMessageDialog( null, "Listando todos os clientes" );
+        JOptionPane.showMessageDialog( null, "Listar clientes" );
         findAll();
         JOptionPane.showMessageDialog( null, "Consultando cliente por ID" );
         findById();
@@ -104,6 +104,7 @@ public class Main {
         } catch (SQLException e) {
             System.err.println( "Não foi possível executar o comando!\n" + e.getMessage() );
         }
+
     }
 
     private static void findAll() {
