@@ -3,13 +3,13 @@ package br.com.fiap;
 import br.com.fiap.domain.entity.Cliente;
 import br.com.fiap.domain.repository.ClienteRepository;
 
-import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.List;
-import java.util.Objects;
 import java.util.Properties;
 
 public class Main {
@@ -44,6 +44,7 @@ public class Main {
         }
         return null;
     }
+
 
     public static void main(String[] args) {
         ClienteRepository repo = new ClienteRepository();
