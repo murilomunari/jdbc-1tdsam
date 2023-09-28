@@ -13,7 +13,7 @@ import java.util.Properties;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ConnectionFactory {
-    // sempre que precisar de um padrão singleton usar esse forma to de codigo
+    // sempre que precisar de um padrão singleton usar esse forma este codigo
     private static final AtomicReference<ConnectionFactory> instance = new AtomicReference<>();
 
 
