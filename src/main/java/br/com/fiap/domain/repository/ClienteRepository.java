@@ -2,13 +2,35 @@ package br.com.fiap.domain.repository;
 
 import br.com.fiap.Main;
 import br.com.fiap.domain.entity.Cliente;
+import br.com.fiap.infra.ConnectionFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ClienteRepository implements Repository<Cliente, Long> {
+
+    private static final AtomicReference<ClienteRepository> instance = new AtomicReference<>();
+
+
+    private ClienteRepository(){
+    }
+
+    public static ClienteRepository build(){
+        ClienteRepository result = instance.get();
+        if (Objects.isNull(result)){
+            ClienteRepository repo = new ClienteRepository();
+            if (instance.compareAndSet(null, repo)){
+                result = repo;
+            }else {
+                result = instance.get();
+            }
+        }
+        return result;
+    }
+
 
     /**
      * <strong>Método para persistencia de Entidade</strong>
@@ -25,7 +47,8 @@ public class ClienteRepository implements Repository<Cliente, Long> {
                 "END;" +
                 "";
 
-        Connection connection = Main.getConnection();
+        var factory = ConnectionFactory.build();
+        Connection connection = factory.getConnection();
         CallableStatement cs = null;
         try {
             cs = connection.prepareCall( sql );
@@ -52,7 +75,8 @@ public class ClienteRepository implements Repository<Cliente, Long> {
         List<Cliente> clientes = new ArrayList<>();
 
         try {
-            Connection connection = Main.getConnection();
+            var factory = ConnectionFactory.build();
+            Connection connection = factory.getConnection();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery( "SELECT * FROM cliente" );
 
@@ -84,7 +108,8 @@ public class ClienteRepository implements Repository<Cliente, Long> {
     public Cliente findById(Long id) {
         Cliente cliente = null;
         var sql = "SELECT * FROM cliente where ID_CLIENTE=?";
-        Connection connection = Main.getConnection();
+        var factory = ConnectionFactory.build();
+        Connection connection = factory.getConnection();
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement( sql );
@@ -112,7 +137,8 @@ public class ClienteRepository implements Repository<Cliente, Long> {
     private List<Cliente> findByName(String texto) {
         List<Cliente> clientes = new ArrayList<>();
         var sql = "SELECT * FROM cliente where UPPER(NM_CLIENTE) like ?";
-        Connection connection = Main.getConnection();
+        var factory = ConnectionFactory.build();
+        Connection connection = factory.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement( sql );
             texto = Objects.nonNull( texto ) ? texto.toUpperCase() : "";
